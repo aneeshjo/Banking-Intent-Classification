@@ -1,0 +1,34 @@
+"# Ignore Python virtual environment" 
+
+
+# Virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+
+# Generated artifacts
+artifacts/*
+
+# Processed data
+data/processed/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
