@@ -1,7 +1,13 @@
 import sys
 
-from src.constants.paths import CONFIG_FILE_PATH
-from src.entities.config_entity import DataIngestionConfig
+from src.constants.paths import (
+     CONFIG_FILE_PATH,
+     SCHEMA_FILE_PATH
+)
+from src.entities.config_entity import(
+DataIngestionConfig,
+DataValidationConfig
+)
 from src.utils.common import read_yaml
 from src.utils.exception import CustomException
 from src.utils.logger import logging
@@ -31,4 +37,16 @@ class ConfigurationManager:
             )
 
         except Exception as e:
+            raise CustomException(e, sys)
+
+    def get_data_validation_config(self) -> DataValidationConfig:
+
+        try:
+
+            return DataValidationConfig(
+                schema_file=str(SCHEMA_FILE_PATH)
+            )
+
+        except Exception as e:
+
             raise CustomException(e, sys)
