@@ -1,5 +1,14 @@
 data_transformation:
   text_column: text
   target_column: category
+
   lowercase: true
   remove_extra_whitespace: true
+
+  tfidf:
+    max_features: 20000
+    ngram_range:
+      - 1
+      - 2
+    min_df: 2
+    max_df: 0.95

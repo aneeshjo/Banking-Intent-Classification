@@ -8,7 +8,8 @@ from src.constants.paths import (
 from src.entities.config_entity import(
 DataIngestionConfig,
 DataValidationConfig,
-DataTransformationConfig
+DataTransformationConfig,
+TfidfConfig
 )
 from src.utils.common import read_yaml
 from src.utils.exception import CustomException
@@ -62,12 +63,21 @@ class ConfigurationManager:
         try:
 
             config = self.params["data_transformation"]
+            tfidf_config =config["tfidf"]
 
             return DataTransformationConfig(
                 text_column=config["text_column"],
                 target_column=config["target_column"],
                 lowercase=config["lowercase"],
-                remove_extra_whitespace=config["remove_extra_whitespace"]
+                remove_extra_whitespace=config["remove_extra_whitespace"],
+                tfidf=TfidfConfig(
+                    max_features=tfidf_config["max_features"],
+                    ngram_range=tuple(
+                        tfidf_config["ngram_range"]
+                    ),
+                    min_df=tfidf_config["min_df"],
+                    max_df=tfidf_config["max_df"]
+                )
             )
 
         except Exception as e:
