@@ -2,11 +2,13 @@ import sys
 
 from src.constants.paths import (
      CONFIG_FILE_PATH,
+     PARAMS_FILE_PATH,
      SCHEMA_FILE_PATH
 )
 from src.entities.config_entity import(
 DataIngestionConfig,
-DataValidationConfig
+DataValidationConfig,
+DataTransformationConfig
 )
 from src.utils.common import read_yaml
 from src.utils.exception import CustomException
@@ -21,6 +23,8 @@ class ConfigurationManager:
             logging.info("Reading configuration file")
 
             self.config = read_yaml(CONFIG_FILE_PATH)
+            self.params = read_yaml(PARAMS_FILE_PATH)
+            self.schema = read_yaml(SCHEMA_FILE_PATH)
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -45,6 +49,25 @@ class ConfigurationManager:
 
             return DataValidationConfig(
                 schema_file=str(SCHEMA_FILE_PATH)
+            )
+
+        except Exception as e:
+
+            raise CustomException(e, sys)
+
+    def get_data_transformation_config(
+        self
+    ) -> DataTransformationConfig:
+
+        try:
+
+            config = self.params["data_transformation"]
+
+            return DataTransformationConfig(
+                text_column=config["text_column"],
+                target_column=config["target_column"],
+                lowercase=config["lowercase"],
+                remove_extra_whitespace=config["remove_extra_whitespace"]
             )
 
         except Exception as e:

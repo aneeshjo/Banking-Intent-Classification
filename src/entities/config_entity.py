@@ -9,3 +9,10 @@ class DataIngestionConfig:
 @dataclass(frozen=True)
 class DataValidationConfig:
     schema_file: str
+
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    text_column: str
+    target_column: str
+    lowercase: bool
+    remove_extra_whitespace: bool
